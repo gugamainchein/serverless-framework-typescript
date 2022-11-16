@@ -1,0 +1,8 @@
+node_modules
+jspm_packages
+.serverless
+.esbuild
+.webpack
+.env.development
+.env.production
+yarn.*
