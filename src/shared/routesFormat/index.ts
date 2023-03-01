@@ -2,7 +2,9 @@ export function formatRoute(
   path: string,
   functionName: string,
   methodRoute: string,
-  pathRoute: string
+  pathRoute: string,
+  bodyParams: "ICreateCustomer" | "IReadCustomer" | "IUpdateCustomer",
+  swaggerTags: string
 ) {
   return {
     handler: `${path}/${functionName}`,
@@ -12,6 +14,8 @@ export function formatRoute(
           method: methodRoute,
           path: pathRoute,
           cors: true,
+          bodyType: bodyParams,
+          swaggerTags: swaggerTags,
         },
       },
     ],

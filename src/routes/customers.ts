@@ -2,21 +2,27 @@ import { formatRoute } from "@shared/routesFormat";
 
 export const readCustomer = formatRoute(
   "src/functions/customers",
-  "read.get",
+  "read.handler",
   "get",
-  "customers/read/{form}/{parameter}"
+  "customers/read/{form}/{parameter}",
+  "ICreateCustomer",
+  "Clientes"
 );
 
 export const createCustomer = formatRoute(
   "src/functions/customers",
-  "create.post",
+  "create.handler",
   "post",
-  "customers/create"
+  "customers/create",
+  "IReadCustomer",
+  "Clientes"
 );
 
 export const updateCustomer = formatRoute(
   "src/functions/customers",
-  "update.put",
+  "update.handler",
   "put",
-  "customers/update/{form}/{parameter}"
+  "customers/update/{form}/{parameter}",
+  "IUpdateCustomer",
+  "Clientes"
 );

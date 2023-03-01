@@ -9,14 +9,17 @@ import {
 
 dotenv.config({ path: __dirname + "/.env.development" });
 
+const apiName = process.env.API_NAME;
+
 const serverlessConfiguration: AWS = {
-  service: process.env.API_NAME,
+  service: apiName,
   useDotenv: true,
   frameworkVersion: "3",
   plugins: [
+    "serverless-auto-swagger",
+    "serverless-webpack",
     "serverless-offline",
     "serverless-dynamodb-local",
-    "serverless-webpack",
     "serverless-dotenv-plugin",
   ],
   provider: {
@@ -30,6 +33,23 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
+    },
+    iam: {
+      role: {
+        statements: [
+          {
+            Effect: "Allow",
+            Action: [
+              "dynamodb:*",
+              "cognito-idp:*",
+              "s3:*",
+              "secretsmanager:*",
+              "lambda:*",
+            ],
+            Resource: ["*"],
+          },
+        ],
+      },
     },
   },
   functions: {
@@ -49,6 +69,16 @@ const serverlessConfiguration: AWS = {
     ],
   },
   custom: {
+    autoswagger: {
+      title: apiName.charAt(0).toUpperCase() + apiName.substring(1),
+      generateSwaggerOnDeploy: true,
+      apiKeyHeaders: ["Authorization"],
+      useStage: true,
+      host: process.env.API_HOST,
+      basePath: "/" + process.env.STAGE,
+      schemes: ["https"],
+      typefiles: ["./src/swaggerConfig/index.ts"],
+    },
     dotenv: {
       path: "./.env.development",
     },

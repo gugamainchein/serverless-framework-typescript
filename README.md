@@ -74,8 +74,6 @@ Após as realizações dos passos acima e a inicialização do projeto com suces
 
 - STAGE: Ambiente que está trabalhando, como por exemplo "dev", "qa" e "prod";
 
-- API_URL: Endpoint da API, de acordo com o ambiente. Caso esteja rodando localmente, a URL tende a ser http://localhost:3000;
-
 - AUTH_HEADER: JWT de sua preferência para validação na autorização.
 
 ## Sobre o projeto
