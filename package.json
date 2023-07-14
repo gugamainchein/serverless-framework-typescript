@@ -4,7 +4,7 @@
   "description": "Aplicação serverless em Typescript",
   "main": "serverless.ts",
   "scripts": {
-    "local": "serverless offline start",
+    "local": "serverless offline start --reloadHandler",
     "deploy": "npx sls deploy",
     "test": "jest"
   },
