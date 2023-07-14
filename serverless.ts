@@ -21,15 +21,20 @@ const serverlessConfiguration: AWS = {
     "serverless-offline",
     "serverless-dynamodb-local",
     "serverless-dotenv-plugin",
+    "serverless-layers",
   ],
   provider: {
     name: "aws",
-    runtime: "nodejs16.x",
+    runtime: "nodejs18.x",
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
-    timeout: 300,
+    deploymentBucket: {
+      name: process.env.DEPLOYMENT_BUCKET,
+    },
+    architecture: "arm64",
+    timeout: 900,
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
@@ -86,6 +91,9 @@ const serverlessConfiguration: AWS = {
       webpackConfig: "./webpack.config.js",
       includeModules: true,
       useChildProcesses: true,
+    },
+    layers: {
+      dependenciesPath: "./package.json",
     },
   },
 };
